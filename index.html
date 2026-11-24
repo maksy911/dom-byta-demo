@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091225">
+  <meta name="description" content=""><meta name="robots" content="noindex, nofollow">
+  <title>Дом быта</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  color-scheme: dark;
+  --background: #080f1d;
+  --text: #f3f7ff;
+  --muted: #a6b4cf;
+  --blue: #9cbaff;
+  --orange: #ffb172;
+  --outline: rgb(165 194 255 / 21%);
+  --font: "Golos Text", "Segoe UI", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
+body {
+  margin: 0;
+  min-width: 280px;
+  background: radial-gradient(ellipse 68rem 42rem at 82% 9rem, #172b56 0%, #0c172e 51%, transparent 85%), var(--background);
+  color: var(--text);
+  font: 1rem/1.6 var(--font);
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid #ffbe91; outline-offset: 5px; }
+[hidden] { display: none !important; }
+.shell { width: min(1160px, calc(100% - 88px)); margin-inline: auto; }
+.skip { position: fixed; z-index: 9; top: .75rem; left: .75rem; transform: translateY(-150%); background: var(--orange); color: #17101a; padding: .55rem .8rem; border-radius: .65rem; }
+.skip:focus { transform: none; }
+
+.glass {
+  border: 1px solid var(--outline);
+  background: linear-gradient(143deg, rgb(177 207 255 / 12%), rgb(125 164 239 / 4%) 55%, rgb(97 143 235 / 9%));
+  box-shadow: inset 0 1px 0 rgb(234 245 255 / 9%), 0 14px 40px rgb(0 5 20 / 25%);
+}
+.header {
+  max-width: 1000px;
+  min-height: 60px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: clamp(1.1rem, 2.6vw, 2rem);
+  margin-top: .9rem;
+  padding: .5rem .7rem .5rem 1.15rem;
+  border: 1px solid var(--outline);
+  border-radius: 20px;
+  background: rgb(111 143 201 / 9%);
+  backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 rgb(240 246 255 / 9%);
+}
+.brand { width: fit-content; white-space: nowrap; font-size: 1.1rem; font-weight: 650; letter-spacing: -.025em; }
+.header nav { display: flex; align-items: center; gap: clamp(.9rem, 2.5vw, 1.65rem); }
+.header nav a { color: var(--muted); font-size: .93rem; font-weight: 550; transition: color .2s; }
+.header nav a:hover, .footer a:hover { color: var(--text); }
+.header-call { justify-self: end; }
+.actions { display: flex; flex-wrap: wrap; gap: .68rem; }
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 53px;
+  padding: .63rem 1.12rem;
+  border: 1px solid #b9d0ff42;
+  border-radius: 14px;
+  background: linear-gradient(155deg, #a6c8ff1d, #88aaff0b);
+  box-shadow: inset 0 1px 0 #dfedff1c;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .24s cubic-bezier(.2,.8,.2,1), background-color .22s, border-color .22s, box-shadow .22s;
+}
+.button:hover { transform: translateY(-2px); background-color: #9fc4ff1d; border-color: #b9d0ff89; box-shadow: inset 0 1px 0 #dfedff32, 0 9px 22px #03091775; }
+.button:active { transform: translateY(0) scale(.98); }
+.button-primary { border-color: #ffc89d; background: linear-gradient(135deg, #ffd0a4, #ffad73 58%, #f48a5d); color: #24111b; box-shadow: inset 0 1px 1px #fff7e78f, 0 8px 22px #ff995d32; }
+.button-primary:hover { border-color: #ffe5cb; box-shadow: inset 0 1px 0 #fff9edda, 0 11px 34px #ff9a5c54; }
+.button-small { min-height: 41px; padding: .35rem .85rem; border-radius: 11px; font-size: .89rem; }
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.03fr;
+  align-items: center;
+  gap: clamp(1.35rem, 3.1vw, 2.8rem);
+  padding-top: clamp(1.65rem, 3.6vw, 3.4rem);
+}
+.hero-copy { min-width: 0; padding-block: 1.2rem; animation: enter .57s both; }
+h1, h2 { margin: 0; line-height: 1.03; letter-spacing: -.055em; }
+h1 { font-size: clamp(4rem, 7.7vw, 6.6rem); font-weight: 650; text-wrap: balance; }
+.hero-description { max-width: 29rem; margin: 1.15rem 0 1.55rem; color: #c2cfea; font-size: clamp(1.08rem, 1.75vw, 1.33rem); line-height: 1.53; }
+.hero-glass {
+  --pointer-x: 38%;
+  --pointer-y: 20%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  min-height: clamp(280px, 29vw, 352px);
+  min-width: 0;
+  padding: clamp(1.25rem, 4vw, 2.45rem);
+  border-radius: clamp(23px, 3vw, 33px);
+  background: radial-gradient(ellipse at var(--pointer-x) var(--pointer-y), #b7d9ff69, transparent 53%),
+              radial-gradient(ellipse at 96% 105%, #ffc09691, #c3707246 30%, transparent 62%),
+              radial-gradient(ellipse at 19% 0%, #4276bf, transparent 65%),
+              linear-gradient(145deg, #1a3977, #2d4384 61%, #4b3b6c);
+  box-shadow: inset 0 1px 2px #f2f8ff9c, inset 0 -1px 2px #f9c5a343, 0 24px 62px #020b22a6;
+  animation: enter .7s .07s both;
+}
+.hero-glass::after { content: ""; position: absolute; z-index: -1; inset: 5px; border-radius: inherit; border: 1px solid #dbedff3d; pointer-events: none; }
+.hero-glass h2 { font-size: clamp(1.5rem, 2.7vw, 2.25rem); font-weight: 620; letter-spacing: -.04em; }
+.hero-services { display: grid; gap: .45rem; margin: 0; padding: 0; list-style: none; }
+.hero-services li { display: flex; align-items: baseline; gap: .65rem; font-size: clamp(.98rem, 1.6vw, 1.14rem); }
+.hero-services li::before { content: ""; width: .34rem; height: .34rem; flex: none; align-self: center; background: #c8dcff; border-radius: 50%; }
+.optics {
+  position: absolute;
+  z-index: -1;
+  right: -12%;
+  bottom: -41%;
+  opacity: .5;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  width: min(77%, 315px);
+  aspect-ratio: 1.16;
+  border-radius: 50%;
+  border: 1px solid #daedff7d;
+  background: radial-gradient(ellipse at 30% 18%, #e2edff7d, transparent 33%),
+              radial-gradient(ellipse at 64% 69%, #c7dcff2a 0%, #79a5ff36 50%, #1d347139 77%),
+              conic-gradient(from 85deg, #6f9bf75c, #f4b49b80 22%, #a8c7ff42 46%, #3f659a96 64%, #ddeaff83 86%, #6f9bf75c);
+  box-shadow: inset 3px 5px 20px #dfecff76, inset -8px -10px 28px #242f74b8, 0 17px 45px #0a174d78;
+  transform: rotate(-13deg);
+}
+.optics i { position: absolute; inset: 5%; border-radius: inherit; border: 1px solid #deebff53; }
+.optics i:nth-child(2) { inset: 10%; border-color: #e1edff2e; }
+.optics i:nth-child(3) { inset: 17%; border-color: #e1edff23; box-shadow: inset 0 0 18px #cacfff2b; }
+.quick-facts { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; border-radius: 19px; animation: enter .58s .12s both; }
+.quick-facts > div { display: grid; align-content: center; gap: .12rem; padding: .88rem 1.25rem; min-width: 0; }
+.quick-facts > div + div { border-left: 1px solid var(--outline); }
+.quick-facts span, .muted { color: var(--muted); }
+.quick-facts span { font-size: .88rem; }
+.quick-facts strong, .quick-facts a { font-weight: 600; }
+.quick-facts a:hover { text-decoration: underline; text-underline-offset: .24em; }
+
+.section { margin-top: clamp(3.25rem, 7.6vw, 6.7rem); }
+.hero + .section { margin-top: clamp(2.15rem, 4.6vw, 4rem); }
+.section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem 1.4rem; flex-wrap: wrap; margin-bottom: 1.3rem; }
+h2 { font-size: clamp(2.55rem, 5.1vw, 4.4rem); font-weight: 640; }
+.text-link { color: #c0d3fd; font-weight: 560; text-decoration: underline; text-decoration-color: #8faffc66; text-underline-offset: .3em; }
+.text-link:hover { color: #fff; }
+.service-list, .phone-list { list-style: none; padding: 0; margin: 0; }
+.service-list { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: .78rem; }
+.service-card {
+  grid-column: span 2;
+  min-height: 148px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 17px;
+  font-size: 1.02rem;
+  line-height: 1.34;
+  font-weight: 600;
+  transition: transform .26s, border-color .26s, background-color .26s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .service-card:hover { transform: translateY(-3px); border-color: #a7c8ff65; background-color: #a7c8ff0b; }
+}
+.service-icon {
+  position: relative;
+  display: grid;
+  place-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #9fc4ff51;
+  border-radius: 12px;
+  background: linear-gradient(148deg, #a4c4ff27, #657bd318);
+  color: #d4e5ff;
+  box-shadow: inset 0 1px 0 #d3e5ff25;
+}
+.service-icon::before { content: ""; width: 27px; height: 27px; background: var(--service-icon) center / contain no-repeat; }
+.icon-key { --service-icon: url("data:image/png;base64,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"); }
+.icon-watch { --service-icon: url("data:image/png;base64,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"); }
+.icon-gem { --service-icon: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAbVSURBVHhe7Zw9iCRFFMcvNDQ0NFKj40JDweTCC89AMDAQTAwNDMwMLzTzMFEwufAS4SJZ5IJlp3tcDGTAne7ZE44VFFR0Xsvrj2X2Vf3ro7t6tnvm/eAfbE9V19Sr7/dq9s4dRVEURVEURVEURVEURVEURVEUZf7k6+peVlSf5yU9c6rYPs8KWjXa/mh8PkjbH7KCfuF358X2zPz8ppYlfXF2QW/LusyORVE9yMuqmpwKyzOLFkX1qazTbMhLup+V9JeslE3Ljfkstz27BfHolXWbPDHGH1vWxo3UrBoh2vhgOkhhOFZmeVYr8v2zaIRo489N6+oDWefJ4DN+VtLp6ap6dTcP/23Lw89Wq+qV3bRDyEs6l2Ww5E6Hy8wKeirT3dAUG6GP8ZlsTQ9l2jp9QU9l2iE022BbOea0MrtGyDbVOy7j5wWtbMZnliU9NtKPUEHu6UYZtehcpmVm0wh8yMpLujK+XKeCVueb6nWZj+FKwrwvqtdk+qFkBW2Mcsqqcn2/STfCEOMzPHKMPLXoRKZNQb6hL82y3IetyTbCUOMzeUmPjHwegwyB1ylZViN6JtPu0o7UEzPfjvbZCCmMz3A6I2/TAG/JtClwTXlojepod2unMp/43g9kvuQkM379Hnt+mTYleUnfGmWyAnqwrxGajQjdl/mS4TM+L3IhxmfQtpC9kDJtStjQssxG9ESmtXFrjeAzfv3Zuron8yFQJXhhlmlTkuLgt/dG4F6NtnCN4ozP7zPf0YwgmXYMGp+/WX6M0fbWCLWxwGLZfuko4zOLNX1kvqeefh7LtGOQFfSJLLtP+dwIyMXBGtwIYxifQT1wL7uIxCPQZ6PejbC4oLvLgv5YWl6qChfbLyvpv/yS3pM2hvBitCzpT/myMTWVhh7re2Rr2v70G70hbW0lK+l9+YLRBYIye1dkkCZKa/pa2trK2a/0oZF5ZMGo1b41YgMsLugbaWsrK17dN+Ze+Rg02hRUEC0u6a60NWR5Se8uN/SPfJEqXnWjbuhjaWMvvkBLX7cB8oLG7sP7gs4Bfd3g2L3RiM89Mk8wKGTYiSsj8/hAjjhubJ9XMgXwBBvgkJN4Q7GWkGc0uMe0hazpoczjAxlhUG8JAIUmY3xBHT7/WNIRzdONLGD3y8c60ZA7ghtGpk0Jiorxc5nWhc8/xlG02Ab1An3pteLcEsgrWSviPTHU4UVQprye4qL2AbndD6fJjc9446OBwZgOeCOipEcybQrQYhkz6rzhSccNkCT43LDsHQz9Ao6g/NUYPQgZLmYj4eyAJV3FdMDe8JUR1xBkb2eoAZE7t8/C7oLjzLKMuhyekgKvwOAR275npKnTSlMhvAMIDfHxDQgzb53feVMhFnT24HVNprWBQqis3i7nofDChRa1WgE7i3o0yXytUg3ndu0COxa/4dDaca0e54dk4Ls2jULu+PBokflYfU/aEvgrnYAbGL76JTloDQXt6a/l6SHIQH0iVDbQwukzXooRvjeGzJGuKWJomNI1xbkW3yZsOXyN2ytDdgn4pD2soqhjuK6/B+zyTkJ3eXsHDfe20vDiVoptog1kSDSyUp5zboX2uI8r4DgpOm5LeBdyG2gB5Y5g68GpT/q3Rl9fCd7u2X9E4QP7ruyuDtcUGuvrunV8i5htDm79LNY8sd5WnrbQDsZ2+xqvQf5NxGThHoOMwLL5y5G72JbWBY5hmFEvnLZRarfIXomNGKWKlsF1SJxJ0BmkU9/1Z1Lgub2tpIiCIePJdIjQqJcv5o3WilmC9uM7lb2eY9GUEOq3D5nGfOHEUCfdrECGYXFP7KJSQ6JlIVEv34XaGHf67ECOt7biV90OJXYL2YGnu2Yr6zto8Wcxa83sCAnp1VvIntEy9G6e1tqyrYe9ruxZHLSGEvDDhroXomkCbQtdO6jGKRc2+o4C3zzMB7WspM/k89ZY1miZI+r1BH/WNFDsQe8g8O5ENlvYY+VU4XJpZyV9JZ/tCjnmjgLfQS0v6WfzmRktg1coi+p349mOQs8WBw00Xt17zWf1cxEtQ17MrKB/5bNOshGPGnT4cqmbOtCP7lyK9S0dBWihxD+aaKJl/lP2TY1yb/NQwAcwU932Ei2+NqFYhNKColL4Pyg6DlZS7SFPlqkIrO6Cwb+i3NO9zUPBd1CLke9GhgIw7p/CaeimzOlqhuHEqbB7Oy0LnYZ203lu5SkB+MKGSDLcqQzAe/+01fX0M6V7m4dCyIGLpynblRclEe7LU6wJ39s8BNqD2nPT8Nzzty8OOpw4FdrA+0vR8/8+X9ObMq0yEvwfXbKi+o4bYlHQ98H/DElRFEVRFEVRFEU5bv4H+NGEP5231IwAAAAASUVORK5CYII="); }
+.icon-shoe { --service-icon: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARwSURBVHhe7ZwhjBQxFIaRSCQOJBKJRCKRKIIkKCTyEgTyDAkSefIkoC4IsgJxuZnZrCBkxW27QZCVqH0lrwObzeu82XZnOjPXvi/53bs3bd90XvvavVu3BEEQBEEQBEEQBEEQBEEQBEEQBEEQBEGYHou1uV+uzeMxVf0yd2m7sqBaw4dKGzMFzTV8pO1LmmplXtBBGFulgte0nclSaTinAzC2SgWfaDuTpdJwQQdgfMEFbWeyVAqW7gCMrYwCUCpYNwzAplTmJLYqDafuszMLgNt5OwALahcDXPq6z84oALjudjs/3ABkH4BCmQdu5+0AnFPbGGQfALv7dDo/3GYo+wAUyjx1O4/rcHNCbWOQfQC4XXChzBtq68vl0typNJxRn2HKJAD1UpB23hgMDLX1pZ+d9fYb9Zskcw3v3M6j4Am19aF++6mvcJUKflDfSYLJlnYedXUNj6itD8uluV1q+EP9BWu1HWQfMjpY9HI6r43B5EhtfWE/ayFS26/Ub5JwhTj8lFDbEMoVPKtzAfpv1axaG7PTrg2ZJGGuEEftYiHLUA0bp/MKltQuFhIAp+PGlBouqV0ssg5A7M5XK/OQHrq7wlxBn99fGyZNSyHujNqGUPuFhevXU8q2If0AcIU4vCFBbUPAT5jjM1Rq+536TY56qeh2vkshjj9fCFOp4Cf1nRxcIa7rlZDmI85Aqe0V9Zsc7I61QyEO4WZWiDCIWNagvpOCOxDH3EBtQ8FETA/geTXsRXqYiZOHK8Th8pHaxgQH2mlDDrMgRiHuGGwFlcsbHVdkk8YWwmiHtTFjvHXc5xDV5XRu0jQV4rCWT+2GAJevbecImNjp39x4xi7EUdhV2T9hzupaJp8UtIO1YEbthuTQeXKdK447Lp0UsQtxx4L5h8tNpJ0L3K/c2BmBS023U8NdyGrDljMa8hMvuMBE3cf+ZTDYQpyGU2o7Bvhmc8vkw8LctjvyPP+/4cNLaJMJElcu6FKIi0Fdr2pYLHSVnWH1zBl642kpVvDSaRSqYx0oBnWFtT05dxUmd/z84iyhz48Ct+Sb8nob60s4SG37hX4Es2PvRXnD7Twn841swZYu6msvZzGDEXXfwRXi8C2jtlMHXxr7Ld/dQ3L7dazwdC9KELiGDl2Ii8n+L//tMrX+TRoGyWOfsS+Y9V4f4xpB7VIGVz82MB5n2Lgk7jUIzRsd2FC7XLAz5UAgeq3KNiavEQtxU4E7HKoFm15mQV1voc7tA0atA02FtiD0skzfFeKUMfO9m8mlht97W/jcpfZvbdtxUsYUq+0XOp7BcIU40WFhIOYa7tExDaLU8Jw6FvmrVB3PqYtreEudivxVrOAzHdMgyhW8ok5F/ioUvKdjGgR3JVHkp84ley4AnR0nRrRxiuY4MaKNUzTHiRFtnKI5Toxo48Q5tqdNzm+48hX3bxyiBUDkJwnAyOocAO5KishPnQPAX0sU+amHu6lcghG1q9d/qYyRxOkk8lQfhzGCIAiCIAiCIAiCIAj98RfHqCaNQDzbfAAAAABJRU5ErkJggg=="); }
+.icon-glasses { --service-icon: url("data:image/png;base64,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"); }
+.icon-tool::before { width: 13px; height: 13px; border: 2px solid; border-radius: 4px; transform: rotate(45deg); }
+
+.photo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; }
+.photo { display: grid; position: relative; overflow: hidden; padding: 0; color: var(--text); cursor: zoom-in; border-radius: 20px; }
+.photo:only-child { grid-column: 1 / -1; }
+.photo img { width: 100%; height: clamp(215px, 30vw, 375px); object-fit: contain; background: #0c172c; transition: transform .32s; }
+.photo:hover img { transform: scale(1.035); }
+.photo > span { position: absolute; bottom: .75rem; right: .75rem; background: #0a1728e8; border: 1px solid #bcd4ff5c; border-radius: 9px; padding: .29rem .62rem; font-size: .88rem; }
+.photo-status { margin: 0; padding: 1.1rem; border-radius: 16px; color: var(--muted); }
+.contact { display: grid; grid-template-columns: 1.2fr .75fr; gap: 1.4rem 2.6rem; padding: clamp(1.35rem, 4vw, 3rem); border-radius: 26px; background: radial-gradient(ellipse at 95% 0%, #c4766341, transparent 63%), linear-gradient(135deg, #172b51, #111e36); }
+.contact h2 { margin-bottom: .85rem; }
+.contact p { margin: .2rem 0; }
+.contact-address { font-weight: 620; font-size: 1.15rem; }
+.contact-address-line { display: flex; align-items: baseline; gap: .15rem 1rem; flex-wrap: wrap; }
+.copy-address { padding: .35rem 0; border: 0; background: transparent; cursor: pointer; font-size: .875rem; }
+.contact p.copy-status { margin: .1rem 0; color: var(--muted); font-size: .875rem; }
+.contact .copy-status:empty { margin: 0; }
+.contact-location .actions { margin-top: 1.25rem; }
+.contact-details { border-left: 1px solid var(--outline); padding-left: clamp(1rem, 3vw, 2.2rem); align-self: stretch; align-content: center; }
+.contact-map {
+  display: grid;
+  grid-column: 1 / -1;
+  overflow: hidden;
+  border: 1px solid var(--outline);
+  border-radius: 18px;
+  background: #0d1b31;
+}
+.map-touch-controls { display: flex; justify-content: flex-end; padding: .55rem; }
+.contact-map iframe { display: block; width: 100%; height: clamp(235px, 31vw, 315px); border: 0; }
+.contact-map.map-locked iframe { pointer-events: none; }
+.phone-list { margin: .18rem 0 .85rem; }
+.phone-list a { white-space: nowrap; font-weight: 650; font-size: clamp(1.1rem, 2.25vw, 1.48rem); }
+.phone-list a:hover { color: var(--orange); }
+.footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .65rem; margin-top: 1.4rem; padding: 1.25rem 0 1.75rem; color: var(--muted); font-size: .91rem; font-weight: 650; }
+
+dialog { position: fixed; max-width: min(94vw, 63rem); max-height: 94dvh; padding: 0; border-radius: 20px; color: var(--text); background: #111e35; }
+dialog[open] { animation: enter .24s both; }
+dialog::backdrop { background: #030918d9; backdrop-filter: blur(12px); }
+dialog figure { margin: 0; }
+dialog img { display: block; max-width: 100%; max-height: 71dvh; margin-inline: auto; }
+dialog figcaption { padding: .65rem 1rem; color: var(--muted); }
+.close { position: absolute; top: .45rem; right: .45rem; z-index: 1; width: 42px; height: 42px; background: #142543; color: #fff; border: 1px solid var(--outline); border-radius: 11px; font-size: 1.75rem; line-height: 1; cursor: pointer; }
+.photo-controls { display: flex; justify-content: center; align-items: center; gap: .7rem; padding: 0 1rem .7rem; }
+.section-enter { animation: enter .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes enter { from { opacity: .15; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 880px) {
+  .shell { width: calc(100% - 48px); }
+  .hero { gap: 1.3rem; }
+  .hero-glass { min-height: 270px; }
+  .service-list { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .service-card:nth-child(4), .service-card:nth-child(5) { grid-column: span 3; }
+}
+@media (max-width: 620px) {
+  .shell { width: calc(100% - 30px); }
+  .header { grid-template-columns: 1fr auto; gap: .45rem; margin-top: .6rem; padding: .55rem .7rem; border-radius: 16px; }
+  .header nav { grid-column: 1 / -1; grid-row: 2; justify-content: center; gap: clamp(.75rem, 6vw, 1.35rem); padding: .4rem .12rem .1rem; border-top: 1px solid var(--outline); }
+  .hero { grid-template-columns: 1fr; padding-top: .8rem; }
+  .hero-copy { padding: .6rem 0 0; }
+  h1 { font-size: clamp(3.45rem, 15vw, 5.3rem); }
+  .hero-description { margin: .82rem 0 1.1rem; }
+  .hero-glass { min-height: 0; }
+  .optics { width: min(63%, 220px); }
+  .quick-facts { grid-template-columns: 1fr; }
+  .quick-facts > div { padding: .65rem .9rem; }
+  .quick-facts > div + div { border-left: 0; border-top: 1px solid var(--outline); }
+  .service-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+  .service-card, .service-card:nth-child(4), .service-card:nth-child(5) { grid-column: span 1; min-height: 120px; padding: .72rem; }
+  .service-card:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 76px; flex-direction: row; justify-content: flex-start; align-items: center; }
+  .service-card span:last-child { overflow-wrap: anywhere; }
+  .photo-grid, .contact { grid-template-columns: 1fr; }
+  .contact-details { border-left: 0; border-top: 1px solid var(--outline); padding: 1rem 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .service-card:hover { transform: none; }
+}
+
+.demo-note { margin-top: .75rem; margin-bottom: 0; color: var(--muted); font-size: .875rem; text-align: center; }
+</style>
+  
+  
+</head>
+<body>
+  <a class="skip" href="#main">К содержанию</a>
+  <header class="header shell" id="top">
+    <a class="brand" href="#top" data-value="name"></a>
+    <nav aria-label="По сайту">
+      <a href="#services">Услуги</a>
+      <a href="#photos" data-gallery-link>Фото</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="button button-small header-call" data-phone="0" data-label="Позвонить"></a>
+  </header>
+  <p class="demo-note shell">Демонстрационная версия сайта</p><main id="main">
+    <section class="hero shell" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <h1 id="page-title" data-value="name"></h1>
+        <p class="hero-description" data-value="tagline"></p>
+        <div class="actions">
+          <a class="button button-primary" data-phone="0" data-label="Позвонить"></a>
+          <a class="button" data-map="yandex" data-label="Открыть карту"></a>
+        </div>
+      </div>
+
+      <section class="hero-glass glass" id="hero-glass" aria-labelledby="hero-services-title">
+        <span class="optics" aria-hidden="true"><i></i><i></i><i></i></span>
+        <h2 id="hero-services-title">Услуги мастерской</h2>
+        <ul class="hero-services" id="hero-services"></ul>
+        <a class="button button-small" href="#services">Все услуги</a>
+      </section>
+
+      <div class="quick-facts glass">
+        <div><span>Режим работы</span><strong data-value="hours"></strong></div>
+        <div><span>Яндекс Карты</span><a data-map="reviews" data-label="ratingLabel"></a></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="services" aria-labelledby="services-title">
+      <div class="section-heading"><h2 id="services-title">Услуги</h2><a class="text-link" data-phone="0" data-label="Уточнить стоимость"></a></div>
+      <ul class="service-list" id="service-list"></ul>
+    </section>
+
+    <section class="section shell" id="photos" aria-labelledby="gallery-title" hidden>
+      <div class="section-heading"><h2 id="gallery-title">Фотографии</h2><a class="text-link" data-map="gallery" data-label="Все фото на Яндекс Картах"></a></div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <p class="photo-status glass" id="photo-status" hidden>Фотографии доступны в альбоме на Яндекс Картах.</p>
+    </section>
+
+    <section class="section shell contact-section" id="contacts" aria-labelledby="contact-title">
+      <div class="contact glass">
+        <div class="contact-location">
+          <h2 id="contact-title">Как найти</h2>
+          <div class="contact-address-line">
+            <p class="contact-address" id="contact-address" data-value="address"></p>
+            <button class="text-link copy-address" id="copy-address" type="button">Скопировать адрес</button>
+          </div>
+          <p class="copy-status" id="copy-status" role="status"></p>
+          <p class="muted"><span data-value="venue"></span> · <span data-value="locationNote"></span></p>
+          <div class="actions">
+            <a class="button button-primary" data-map="yandex" data-label="Открыть Яндекс Карты"></a>
+            <a class="button" data-map="gis" data-label="Открыть 2ГИС"></a>
+          </div>
+        </div>
+        <div class="contact-details">
+          <span class="muted">Телефоны</span>
+          <ul class="phone-list" id="phone-list"></ul>
+          <span class="muted">Режим работы</span>
+          <p data-value="hours"></p>
+        </div>
+        <div class="contact-map" id="contact-map" hidden>
+          <div class="map-touch-controls" id="map-touch-controls" hidden>
+            <button class="button button-small" id="map-touch-toggle" type="button" aria-controls="map-frame">Управлять картой</button>
+          </div>
+          <iframe id="map-frame" title="Расположение мастерской на Яндекс Картах" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer shell">
+    <a href="#top" data-value="name"></a>
+    <a data-map="reviews" data-label="Отзывы на Яндекс Картах"></a>
+  </footer>
+  <dialog id="photo-dialog" class="glass" aria-labelledby="photo-caption">
+    <form method="dialog"><button class="close" aria-label="Закрыть фото">×</button></form>
+    <figure><img alt=""><figcaption id="photo-caption"></figcaption></figure>
+    <div class="photo-controls">
+      <button class="button button-small" type="button" id="photo-prev">Назад</button>
+      <span id="photo-count" aria-live="polite"></span>
+      <button class="button button-small" type="button" id="photo-next">Дальше</button>
+    </div>
+  </dialog>
+<script>
+// Данные компании. Меняй этот файл, когда копируешь сайт для другой мастерской.
+window.business = {
+  name: "Дом быта",
+  tagline: "Мастерская бытовых услуг",
+  venue: "ТЦ «Премьера»",
+  address: "Москва, проспект Вернадского, 105",
+  locationNote: "1-й этаж · м. Юго-Западная",
+  hours: "Ежедневно, 11:00–20:00",
+  summary: "Изготовление ключей, ремонт часов, обуви, очков и ювелирных изделий.",
+  ratingLabel: "4,2 из 5 · 8 оценок",
+  phones: [
+    { display: "+7 (926) 085-20-06", number: "+79260852006" },
+    { display: "+7 (903) 764-53-55", number: "+79037645355" }
+  ],
+  services: [
+    { title: "Изготовление ключей", icon: "key" },
+    { title: "Ремонт часов", icon: "watch" },
+    { title: "Ремонт ювелирных изделий", icon: "gem" },
+    { title: "Ремонт обуви и кожгалантереи", icon: "shoe" },
+    { title: "Ремонт очков", icon: "glasses" }
+  ],
+  maps: {
+    yandex: "https://yandex.by/maps/org/dom_byta/218961633093/",
+    gis: "https://2gis.ru/moscow/firm/70000001118082590",
+    widget: "https://yandex.ru/map-widget/v1/?mode=search&oid=218961633093&ol=biz&z=17&lang=ru_RU",
+    gallery: "https://yandex.by/maps/org/dom_byta/218961633093/gallery/",
+    reviews: "https://yandex.by/maps/org/dom_byta/218961633093/reviews/"
+  },
+  photos: []
+};
+</script>
+<script>
+const business = window.business;
+const select = (selector) => document.querySelector(selector);
+const lessMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+function setLink(anchor, url, label) {
+  anchor.href = url;
+  anchor.textContent = label;
+}
+
+document.title = `${business.name} · ${business.venue}`;
+select('meta[name="description"]').content = `${business.summary} ${business.address}.`;
+document.querySelectorAll("[data-value]").forEach((element) => {
+  element.textContent = business[element.dataset.value] ?? "";
+});
+document.querySelectorAll("[data-phone]").forEach((anchor) => {
+  const phone = business.phones[Number(anchor.dataset.phone)];
+  setLink(anchor, `tel:${phone.number}`, anchor.dataset.label || phone.display);
+});
+document.querySelectorAll("[data-map]").forEach((anchor) => {
+  const label = anchor.dataset.label;
+  setLink(anchor, business.maps[anchor.dataset.map], business[label] || label);
+});
+
+const copyStatus = select("#copy-status");
+select("#copy-address").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(business.address);
+    copyStatus.textContent = "Адрес скопирован.";
+  } catch {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(select("#contact-address"));
+    selection.removeAllRanges();
+    selection.addRange(range);
+    copyStatus.textContent = "Адрес выделен. Его можно скопировать.";
+  }
+});
+
+if (business.maps.widget) {
+  const map = select("#contact-map");
+  const frame = select("#map-frame");
+  const controls = select("#map-touch-controls");
+  const toggle = select("#map-touch-toggle");
+  const touchPointer = matchMedia("(pointer: coarse)");
+
+  function setMapTouchMode(active) {
+    const locked = touchPointer.matches && !active;
+    map.classList.toggle("map-locked", locked);
+    frame.toggleAttribute("inert", locked);
+    controls.hidden = !touchPointer.matches;
+    toggle.textContent = active ? "Вернуться к прокрутке" : "Управлять картой";
+  }
+
+  toggle.addEventListener("click", () => setMapTouchMode(map.classList.contains("map-locked")));
+  touchPointer.addEventListener("change", () => setMapTouchMode(false));
+  setMapTouchMode(false);
+  frame.src = business.maps.widget;
+  map.hidden = false;
+}
+
+const heroServices = select("#hero-services");
+const serviceList = select("#service-list");
+business.services.forEach((service, index) => {
+  const item = document.createElement("li");
+  const icon = document.createElement("span");
+  const title = document.createElement("span");
+  item.className = "service-card glass";
+  icon.className = `service-icon icon-${service.icon ?? "tool"}`;
+  icon.setAttribute("aria-hidden", "true");
+  title.textContent = service.title;
+  item.append(icon, title);
+  serviceList.append(item);
+  if (index < 3) {
+    const preview = document.createElement("li");
+    preview.textContent = service.title;
+    heroServices.append(preview);
+  }
+});
+business.phones.forEach((phone) => {
+  const item = document.createElement("li");
+  const anchor = document.createElement("a");
+  setLink(anchor, `tel:${phone.number}`, phone.display);
+  item.append(anchor);
+  select("#phone-list").append(item);
+});
+
+const heroGlass = select("#hero-glass");
+heroGlass.addEventListener("pointermove", (event) => {
+  if (lessMotion.matches || event.pointerType !== "mouse") return;
+  const rect = heroGlass.getBoundingClientRect();
+  heroGlass.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
+  heroGlass.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
+});
+heroGlass.addEventListener("pointerleave", () => {
+  heroGlass.style.removeProperty("--pointer-x");
+  heroGlass.style.removeProperty("--pointer-y");
+});
+
+const dialog = select("#photo-dialog");
+const dialogImage = dialog.querySelector("img");
+const dialogCaption = select("#photo-caption");
+const gallery = select("#photos");
+const grid = select("#photo-grid");
+const photoStatus = select("#photo-status");
+const controls = select(".photo-controls");
+const availablePhotos = new Map();
+let currentPhoto = 0;
+let lastPhoto = null;
+
+function showPhoto(index) {
+  const indexes = [...availablePhotos.keys()].sort((first, second) => first - second);
+  const offset = indexes.indexOf(index);
+  const photo = business.photos[index];
+  currentPhoto = index;
+  dialogImage.alt = photo.alt;
+  dialogImage.src = photo.url;
+  dialogCaption.textContent = photo.alt;
+  select("#photo-count").textContent = `${offset + 1} / ${indexes.length}`;
+  controls.hidden = indexes.length < 2;
+}
+
+function stepPhoto(amount) {
+  const indexes = [...availablePhotos.keys()].sort((first, second) => first - second);
+  const position = indexes.indexOf(currentPhoto);
+  if (!indexes.length) return;
+  showPhoto(indexes[(position + amount + indexes.length) % indexes.length]);
+}
+
+business.photos.forEach((photo, index) => {
+  const button = document.createElement("button");
+  const image = document.createElement("img");
+  const label = document.createElement("span");
+  button.type = "button";
+  button.className = "photo glass";
+  button.setAttribute("aria-label", `Увеличить фото. ${photo.alt}`);
+  image.alt = photo.alt;
+  image.loading = "lazy";
+  image.decoding = "async";
+  image.referrerPolicy = "no-referrer";
+  label.textContent = "Увеличить фото";
+  image.addEventListener("error", () => {
+    availablePhotos.delete(index);
+    button.remove();
+    photoStatus.hidden = grid.childElementCount > 0;
+  });
+  button.addEventListener("click", () => {
+    lastPhoto = button;
+    showPhoto(index);
+    dialog.showModal();
+  });
+  button.append(image, label);
+  grid.append(button);
+  availablePhotos.set(index, button);
+  image.src = photo.url;
+});
+
+gallery.hidden = business.photos.length === 0;
+select("[data-gallery-link]").hidden = gallery.hidden;
+dialogImage.referrerPolicy = "no-referrer";
+select("#photo-prev").addEventListener("click", () => stepPhoto(-1));
+select("#photo-next").addEventListener("click", () => stepPhoto(1));
+dialog.addEventListener("close", () => lastPhoto?.focus());
+dialog.addEventListener("click", (event) => {
+  if (event.target === dialog) dialog.close();
+});
+dialog.addEventListener("keydown", (event) => {
+  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+  event.preventDefault();
+  stepPhoto(event.key === "ArrowLeft" ? -1 : 1);
+});
+
+if ("IntersectionObserver" in window && !lessMotion.matches) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(({ isIntersecting, target }) => {
+      if (!isIntersecting) return;
+      target.classList.add("section-enter");
+      observer.unobserve(target);
+    });
+  }, { threshold: 0.09 });
+  document.querySelectorAll(".section").forEach((section) => observer.observe(section));
+}
+</script>
+</body>
+</html>
